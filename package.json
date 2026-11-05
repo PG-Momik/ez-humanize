@@ -1,0 +1,12 @@
+{
+  "name": "humanize",
+  "version": "0.1.0",
+  "description": "Natural-language writing engine CLI: revises a draft about a Claude Code session using DeepSeek, preserving the author's voice.",
+  "license": "MIT",
+  "private": true,
+  "bin": { "humanize": "./humanize.js" },
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test test/"
+  }
+}
