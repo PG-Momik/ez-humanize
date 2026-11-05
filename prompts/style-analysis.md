@@ -15,7 +15,7 @@ Look at:
 - Tone and confidence: assertive, tentative, self-critical, matter-of-fact; whether opinions are stated plainly.
 - Habits worth preserving: anything distinctive that works.
 - Genuine weaknesses: only things that would confuse or mislead a reader, such as a broken sentence, a missing word, a point repeated in full, or an ambiguous reference.
-- Sentences that already read well and should be left alone. Give the first few words of each.
+- Sentences that already read well and whose construction is worth mirroring elsewhere. Give the first few words of each. These are examples of the author's best phrasing to imitate, not sentences to skip; the editor will still rephrase them.
 
 Respond with a single JSON object and nothing else. Use exactly these keys:
 
@@ -30,7 +30,7 @@ Respond with a single JSON object and nothing else. Use exactly these keys:
   "tone_and_confidence": "...",
   "habits_to_preserve": ["..."],
   "genuine_weaknesses": ["..."],
-  "leave_alone": ["first words of a sentence that already reads well", "..."],
+  "leave_alone": ["first words of a sentence whose phrasing is worth mirroring", "..."],
   "non_standard_but_clear": "If the author's English is non-standard but clear (word order, articles, idiom), describe it so the editor keeps that character unless it hurts clarity. Otherwise an empty string."
 }
 

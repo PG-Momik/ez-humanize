@@ -1,6 +1,6 @@
 # Research notes: AI writing patterns, detection, and what this tool does about them
 
-Short notes from the reading done before designing the prompts. These are conceptual; the tool does not implement any detector or any detector-evasion logic.
+Short notes from the reading done before designing the prompts. These are conceptual; the tool does not implement any detector or any detector-evasion logic and will not be used for such. This is an internal tool to be used to evaluate our bedrock model to distinguish ai vs human data.  Given that we lack substantial sample size of human text, we've opted to tun our ai generated notes to our proposed humanizer and then feed that humanized text to the bedrock model and see if it detects it as human or not. (evaluation metric on seperate service and not this service's concern.)
 
 ## How AI-text classifiers are built and evaluated
 
@@ -30,13 +30,12 @@ Human prose varies with the writer's background, how well they know the subject,
 
 ## Design decisions that follow
 
-1. **Preserve variation rather than manufacture it.** The style stage records the author's actual sentence-length range, vocabulary and habits, and the editor is told to match that profile. The editor is also told not to alternate sentence lengths mechanically, insert slang or deliberate irregularities, or add contractions the author did not use. Manufactured burstiness is a detector-evasion trick, not better writing, and it produces exactly the inauthentic prose the user does not want.
-2. **Edit, do not rewrite.** A good edit of a decent draft leaves most sentences alone. Every unnecessary rewrite drifts towards the model's own average, which is the generic voice the user is trying to avoid. The reviewer flags unnecessary changes as a problem.
-3. **Facts come only from the draft.** The session is reference material for understanding and precision, never a source of new content. This stops the editor from "improving" the write-up with claims the author did not make, the most damaging failure mode for a document that will be read as the author's own account.
-4. **Evidence over claims.** The digest labels tool output as evidence and model text as claims, and the context stage is forbidden from upgrading one to the other. The tool itself cross-checks "tests pass" statements against recorded test executions before the model sees anything.
-5. **Name the habits, both ways.** The editor prompt lists the generic-LLM habits to avoid, and in the same breath the artificial "humanising" habits to avoid. Both lists are in the prompt file, not the code, so they can be tuned.
-6. **A skeptical second pass.** The review stage exists because single-pass rewrites are prone to the very patterns listed above. It checks meaning, inventions, technical accuracy, formality drift and genericness, and can send the draft back once for targeted fixes.
-7. **No detector in the loop.** Given the reliability findings, optimising for a detector score would be optimising for noise, and it would conflict with the goal of honest, natural writing. The tool measures nothing about detectability.
+1. **Reword, don't just correct.** The editor rewrites every sentence into a new construction rather than leaving good sentences alone. This is so our internal model doesn't keep seeing the same text with only slight tweaks on ingestion — we want genuinely different wording each time, while facts and the author's voice stay in place.
+2. **Facts come only from the draft.** The session is reference material for understanding and precision, never a source of new content. This stops the editor from "improving" the write-up with claims the author did not make, the most damaging failure mode for a document that will be read as the author's own account.
+3. **Evidence over claims.** The digest labels tool output as evidence and model text as claims, and the context stage is forbidden from upgrading one to the other. The tool itself cross-checks "tests pass" statements against recorded test executions before the model sees anything.
+4. **Name the habits, both ways.** The editor prompt lists the generic-LLM habits to avoid, and in the same breath the artificial "humanising" habits to avoid. Both lists are in the prompt file, not the code, so they can be tuned.
+5. **A skeptical second pass.** The review stage exists because single-pass rewrites are prone to the very patterns listed above. It checks meaning, inventions, technical accuracy, formality drift and genericness, and can send the draft back once for targeted fixes.
+6. **No detector in the loop.** Given the reliability findings, optimising for a detector score would be optimising for noise, and it would conflict with the goal of honest, natural writing. The tool measures nothing about detectability.
 
 ## Sources consulted
 
